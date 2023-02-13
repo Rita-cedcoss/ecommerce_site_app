@@ -73,7 +73,7 @@ const SignUp = () => {
   // for get user Data
   useEffect(()=>{
     let signuUser=localStorage.getItem("signUpData")||"";
-    console.log(signuUser)
+    console.log(signuUser);
     dispatch(getUserItem(JSON.parse(signuUser)));
   },[])
   return (

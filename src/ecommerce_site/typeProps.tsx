@@ -8,6 +8,10 @@ export type signupProps={
 export type ecommerceProps={
     signupArr:signupProps[],
     productArr:any
+    CartArr:any;
+    productQuantity:number;
+    calPrice:number
+    searchArr:any
 }
 export type state={
     EcommerceReducer:ecommerceProps

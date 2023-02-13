@@ -1,7 +1,18 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { Link } from 'react-router-dom'
 
 const Navbar = () => {
+  // console.log(JSON.parse(localStorage.getItem("productData")||""));
+  const searchref=useRef<HTMLInputElement>(null);
+  const searchData=(e:any)=>{
+    e.preventDefault();
+    if(searchref.current!==null)
+    {
+        let value=searchref.current.value;
+        console.log(value);
+    }
+     
+  }
   return (
 <nav className="navbar navbar-expand-lg navbar-light navBg border-bottom mb-2">
   <div className="container-fluid ">
@@ -18,9 +29,9 @@ const Navbar = () => {
       <Link to="/cart" className='text-decoration-none text-dark'>Cart Page</Link> 
         </li>
       </ul>
-      <form className="d-flex">
-        <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-        <button className="btn btn-outline-secondary" type="submit">Search</button>
+      <form className="d-flex" onSubmit={searchData}>
+        <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" ref={searchref}/>
+        <button className="btn btn-outline-secondary" type="submit" >Search</button>
       </form>
     </div>
   </div>
