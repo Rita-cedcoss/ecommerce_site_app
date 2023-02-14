@@ -71,6 +71,21 @@ const ecommerceSlice=createSlice({
        } 
         localStorage.setItem("cartData",JSON.stringify(state.CartArr));
     },
+    searchItem:(state,action)=>{
+        // console.log(state.productArr,action.payload.length);
+        // state.p=[]
+        // state.searchArr=state.productArr
+        let matchSearchArr:any=[];
+        state.productArr.map((item:any)=>{
+            
+            // console.log(item.title);
+             if(item.title.slice(0,action.payload.length).toUpperCase()===action.payload.toUpperCase())
+             {
+                matchSearchArr.push(item);
+             } 
+        })
+        state.searchArr=matchSearchArr
+    }
    } ,
    extraReducers:(builder)=>{
     builder
@@ -79,6 +94,7 @@ const ecommerceSlice=createSlice({
     })
     .addCase(fetchProductData.fulfilled,(state,action)=>{
         state.productArr=action.payload;
+        // state.searchArr=action.payload
         localStorage.setItem("productData",state.productArr);
     })
     .addCase(fetchProductData.rejected,(state,action)=>{
@@ -86,5 +102,5 @@ const ecommerceSlice=createSlice({
     })
    }
 })
-export const {signup,getUserItem,deletUser,updateQuntity,getQuantity,addCart,getCart}=ecommerceSlice.actions
+export const {signup,getUserItem,deletUser,updateQuntity,getQuantity,addCart,getCart,searchItem}=ecommerceSlice.actions
 export default ecommerceSlice.reducer
