@@ -15,15 +15,24 @@ const UserDashboard = () => {
     let productData = localStorage.getItem("productData") || "";
     dispatch(getQuantity(JSON.parse(productData)));      
   }, []);
-  const addToCart=(ind:number)=>{   
-  dispatch(addCart(state.EcommerceReducer.productArr[ind]));
+  const addToCart=(ind:number)=>{ 
+    // console.log(JSON.parse( localStorage.getItem("signUpData")||""));  
+  //  console.log(state.EcommerceReducer.signupArr);
+   let loginData=JSON.parse(localStorage.getItem("loginUser")||"");
+   console.log(loginData)
+   JSON.parse( localStorage.getItem("signUpData")||"").map((item:any,i:number)=>{
+    //  console.log(item);
+     if(item. email==loginData.email && item.password==loginData.password){
+            dispatch(addCart({obj:state.EcommerceReducer.productArr[ind],index:i}));
+     }
+   })
+
   }
   console.log(state.EcommerceReducer);
   return (   
     <>
         <Navbar/>
-        <Slider/>
-        
+        <Slider/> 
         {(state.EcommerceReducer.searchArr.length>0)?
         <div className='container'>
           <div className='autofill '>

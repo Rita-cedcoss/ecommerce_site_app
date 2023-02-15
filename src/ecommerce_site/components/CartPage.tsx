@@ -39,9 +39,7 @@ const CartPage = () => {
             <td>{item.price}</td>
             <td><span className='btnIncrement'>+</span><span>{item.productQuantity}</span><span className='btnIncrement'>-</span></td>
             <td>{item.calPrice}</td>
-            <td><i
-                        className="bi bi-trash3-fill fs-3 text-danger"
-                      ></i></td>
+            <td><i className="bi bi-trash3-fill fs-3 text-danger"></i></td>
           </tr>
          )
     })}

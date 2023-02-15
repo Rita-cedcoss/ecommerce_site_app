@@ -2,31 +2,35 @@ import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { AnyAction } from "redux";
-import { fetchProductData } from "../Redux/ecommerceSlice";
+import { fetchProductData, getLogin, loginUser } from "../Redux/ecommerceSlice";
 
 const Login = () => {
   let loginRef=useRef<any>([]);
   const[errorMsg,setErrormsg]=useState<string>('');
-  // console.log();
   let navigate=useNavigate();
+  const dispatch=useDispatch();
+  useEffect(()=>{
+   let loginData= localStorage.getItem("loginUser")||"";
+   dispatch(getLogin(JSON.parse(loginData)));
+  })
+// for user login
   const signIn=(e:any)=>{
     e.preventDefault();
     let signUpData=localStorage.getItem("signUpData")||"";
     JSON.parse(signUpData).map((item:any)=>{
       if(item.email==loginRef.current.email.value && item.password==loginRef.current.password.value && item.role=="user")
       {
-        // console.log("match item")
-        navigate("/user")
-       
+        dispatch(loginUser(item));
+        navigate("/user"); 
       }
       else if(item.email==loginRef.current.email.value && item.password==loginRef.current.password.value && item.role=="manager")
       {
-        // console.log("manager")
+        dispatch(loginUser(item));
         navigate("/manager")
       }
       else if(item.email==loginRef.current.email.value && item.password==loginRef.current.password.value && item.role=="admin")
       {
-        // console.log("admin");
+        dispatch(loginUser(item));
         navigate("/admin");
       }
       else{

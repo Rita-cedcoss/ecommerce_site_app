@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom'
-import { searchItem } from '../Redux/ecommerceSlice';
+import { filter, searchItem,  sortItem } from '../Redux/ecommerceSlice';
 import { state } from '../typeProps';
 let arr:any=[]
 const Navbar = () => {
@@ -30,9 +30,16 @@ const Navbar = () => {
       }
     })
   },[])
-
+  const filterItem=(e:any)=>{
+    console.log(state);
+    console.log(e.target.value);
+    dispatch<any>(filter(e.target.value));
+  }
+  const sorting=(e:any)=>{
+    console.log(e.target.value);
+    dispatch<any>(sortItem(e.target.value));
+  }
 console.log(arr);
-// console.log(state.productArr);
   return (
 <nav className="navbar navbar-expand-lg navbar-light navBg border-bottom mb-2">
   <div className="container-fluid ">
@@ -45,9 +52,17 @@ console.log(arr);
         <li className="nav-item">
           <Link to="/user" className='text-decoration-none ps-3 pe-3 text-dark fs-5'>OnlineShop</Link>
         </li>
-        
-        <li>
-          <select className='border-0 bg-dark text-light p-1 ms-3 me-3 rounded'>
+        <li className="nav-item">
+          <Link to="/" className='text-decoration-none ps-3 pe-3 text-dark fs-5'>Sign Up</Link>
+        </li> 
+      </ul>
+      <form className="d-flex" onSubmit={searchData}>
+        <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" ref={searchref}/>
+        <button className="btn btn-outline-secondary" type="submit" >Search</button>
+      </form>
+      <ul className="navbar-nav  mb-2 mb-lg-0 ">
+      <li>
+          <select className='border-0 bg-dark text-light p-1 ms-3 me-3 rounded' onChange={(e)=>filterItem(e)}>
           <option selected hidden>Filter</option>  
             {arr.map((item:any)=>{       
                     return(   
@@ -57,21 +72,18 @@ console.log(arr);
           </select>
         </li>
         <li>
-          <select className='border-0 bg-dark text-light p-1 ms-3 me-3 rounded'>
-            <option>Sorting</option>
-            <option value="price">price</option>
-            <option value="rating">rating</option>
-            <option value="discountPercentage">Discount</option>
+          <select className='border-0 bg-dark text-light p-1 ms-3 me-3 rounded' onChange={(e)=>sorting(e)}>
+            <option selected hidden>Sorting</option>
+            <option value="low-high price">low-high price</option>
+            <option value="high-low price">high-low price</option>
           </select>
         </li>
-        <li className="nav-item">
+
+      <li className="nav-item">
       <Link to="/cart" className='text-decoration-none text-dark fs-5'><i className="bi bi-cart-dash-fill "></i>Cart Page</Link> 
         </li>
       </ul>
-      <form className="d-flex" onSubmit={searchData}>
-        <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" ref={searchref}/>
-        <button className="btn btn-outline-secondary" type="submit" >Search</button>
-      </form>
+      
     </div>
   </div>
 </nav>

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getUserItem, signup } from "../Redux/ecommerceSlice";
-import { state,signupProps } from "../typeProps";
+import { state } from "../typeProps";
 
 const SignUp = () => {
   //for state selector
@@ -13,7 +13,7 @@ const SignUp = () => {
   const signupRef=useRef<any>([]);
   const [errorMessage,setErrormsg]=useState({msgName:"",msgEmail:"",msgPswd:"" ,msgEmpty:""});
   // input handler
-  const inputHandler=(e:React.ChangeEvent<HTMLInputElement>)=>{
+  const inputHandler=(e:React.ChangeEvent<HTMLInputElement>)=>{ 
     let placeholder= e.target.getAttribute("placeholder");
     if(placeholder=="Enter Your Name")
     {  
@@ -57,21 +57,35 @@ const SignUp = () => {
   }
   // user register
   const register=(e:any)=>{
+    let flag=false;
     e.preventDefault();
      if(signupRef.current.name.value==""||signupRef.current.email.value==""|| signupRef.current.password.value==""){
       errorMessage.msgEmpty="Please Fill All The fields"
-     }
+    
+    }
      else{
-      errorMessage.msgEmpty="User Signup Successfully";
-      let obj={name:signupRef.current.name.value,email:signupRef.current.email.value,password:signupRef.current.password.value,role:"user"}
-      // console.log(obj);
-      dispatch(signup(obj));
+      state.EcommerceReducer.signupArr.map((item:any)=>{
+        if(item.name==signupRef.current.name.value &&  item.email==signupRef.current.email.value && item.password==signupRef.current.password.value){
+          
+          flag=true;
+        }
+      })
+      if(flag)
+      {
+        alert("already exist");
+      }
+      else{
+        errorMessage.msgEmpty="User Signup Successfully";
+        let obj={name:signupRef.current.name.value,email:signupRef.current.email.value,password:signupRef.current.password.value,role:"user",cartArr:[]} 
+            dispatch(signup(obj));
+      }
      }
      e.currentTarget.reset();
      setErrormsg({...errorMessage});
   }
   // for get user Data
   useEffect(()=>{
+    // localStorage.removeItem("signUpData");
     let signuUser=localStorage.getItem("signUpData")||"";
     console.log(signuUser);
     dispatch(getUserItem(JSON.parse(signuUser)));
@@ -128,8 +142,7 @@ const SignUp = () => {
           <button type="submit" className="btn btn-primary mt-2">
             Sign Up
           </button>
-           <span className="ps-2 fs-5 pt-5"><Link to="/login">Login</Link></span>
-               
+           <span className="ps-2 fs-5 pt-5"><Link to="/login">Login</Link></span>     
         </form>
       </div>
     </>
