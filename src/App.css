@@ -40,7 +40,6 @@
     flex-grow:1;
 }
 .autofill {
-  min-height: 400px;
   margin-top: 4%;
   padding: 10px 0px 10px 0px;
   border-radius: 3px;

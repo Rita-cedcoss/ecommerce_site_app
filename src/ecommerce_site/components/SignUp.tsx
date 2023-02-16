@@ -57,6 +57,7 @@ const SignUp = () => {
   }
   // user register
   const register=(e:any)=>{
+    console.log(state.EcommerceReducer)
     let flag=false;
     e.preventDefault();
      if(signupRef.current.name.value==""||signupRef.current.email.value==""|| signupRef.current.password.value==""){
@@ -72,7 +73,7 @@ const SignUp = () => {
       })
       if(flag)
       {
-        alert("already exist");
+        errorMessage.msgEmpty="User already exist";
       }
       else{
         errorMessage.msgEmpty="User Signup Successfully";
@@ -87,7 +88,7 @@ const SignUp = () => {
   useEffect(()=>{
     // localStorage.removeItem("signUpData");
     let signuUser=localStorage.getItem("signUpData")||"";
-    console.log(signuUser);
+    // console.log(signuUser);
     dispatch(getUserItem(JSON.parse(signuUser)));
   },[])
   return (

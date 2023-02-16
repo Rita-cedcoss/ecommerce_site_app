@@ -3,6 +3,7 @@ export type signupProps={
    email:string,
    password:string,
    role:string
+   cartArr:any;
 }
 
 export type ecommerceProps={
