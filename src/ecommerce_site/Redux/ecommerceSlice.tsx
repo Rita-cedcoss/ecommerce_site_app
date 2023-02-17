@@ -3,7 +3,6 @@ import axios from "axios";
 import { act } from "react-dom/test-utils";
 import { json } from "stream/consumers";
 import { ecommerceProps, FetchProps } from "../typeProps";
-
 let initialState: ecommerceProps = {
   signupArr: [],
   loginObj: {},
@@ -31,6 +30,7 @@ const ecommerceSlice = createSlice({
   name: "EcommerceApp",
   initialState,
   reducers: {
+    // for signup data
     signup: (state, action) => {
       console.log(action.payload);
       state.signupArr.push(action.payload);
@@ -39,6 +39,7 @@ const ecommerceSlice = createSlice({
     getUserItem: (state, action) => {
       state.signupArr = action.payload;
     },
+    // for login
     loginUser: (state, action) => {
       state.loginObj = action.payload;
       localStorage.setItem("loginUser", JSON.stringify(state.loginObj));
@@ -46,10 +47,12 @@ const ecommerceSlice = createSlice({
     getLogin: (state, action) => {
       state.loginObj = action.payload;
     },
+    // for delete user 
     deletUser: (state, action) => {
       state.signupArr.splice(action.payload, 1);
       localStorage.setItem("signUpData", JSON.stringify(state.signupArr));
     },
+    // for product data
     updateQuntity: (state, action) => {
       state.productArr[action.payload.index].stock = action.payload.inpValue;
       localStorage.setItem("productData", JSON.stringify(state.productArr));
@@ -58,6 +61,7 @@ const ecommerceSlice = createSlice({
       state.productArr = action.payload;
       state.searchArr = action.payload;
     },
+    // add product in cart
     addCart: (state, action) => {
       const itemIndex = state.signupArr[action.payload.index].cartArr.findIndex(
         (item: any) => item.id === action.payload.obj.id
@@ -88,6 +92,7 @@ const ecommerceSlice = createSlice({
       }
       localStorage.setItem("signUpData", JSON.stringify(state.signupArr));
     },
+    //for search item 
     searchItem: (state, action) => {
       let matchSearchArr: any = [];
       state.productArr.map((item: any) => {
@@ -100,6 +105,7 @@ const ecommerceSlice = createSlice({
       });
       state.searchArr = matchSearchArr;
     },
+    // for increment quantity in cart
     incrementCart: (state, action) => {
       state.signupArr[action.payload.userIndex].cartArr[
         action.payload.cartIndex
@@ -116,6 +122,7 @@ const ecommerceSlice = createSlice({
         ].productQuantity;
         localStorage.setItem("signUpData", JSON.stringify(state.signupArr));
     },
+    // for decrement quantity in cart
     decrementCart: (state, action) => {
       if (
         state.signupArr[action.payload.userIndex].cartArr[
@@ -138,6 +145,7 @@ const ecommerceSlice = createSlice({
       }
       localStorage.setItem("signUpData", JSON.stringify(state.signupArr));
     },
+    // for delete item from cart
     deletCartItem: (state, action) => {
       state.signupArr[action.payload.userIndex].cartArr.splice(
         action.payload.cartIndex,
@@ -145,6 +153,7 @@ const ecommerceSlice = createSlice({
       );
       localStorage.setItem("signUpData", JSON.stringify(state.signupArr));
     },
+    // for filter product
     filter: (state, action) => {
       console.log(action.payload);
       let matchSearchArr: any = [];
@@ -155,6 +164,7 @@ const ecommerceSlice = createSlice({
       });
       state.searchArr = matchSearchArr;
     },
+    // for sort data
     sortItem: (state, action) => {
       if (action.payload == "low-high price") {
         state.searchArr.sort((a: any, b: any) => {
@@ -174,9 +184,11 @@ const ecommerceSlice = createSlice({
       }
     },
   },
+  // for fetching data form api
   extraReducers: (builder) => {
     builder
-      .addCase(fetchProductData.pending, (state, action) => {})
+      .addCase(fetchProductData.pending, (state, action) => {
+      })
       .addCase(fetchProductData.fulfilled, (state, action) => {
         state.productArr = action.payload;
         state.searchArr = action.payload;

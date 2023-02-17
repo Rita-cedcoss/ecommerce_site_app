@@ -6,13 +6,7 @@ let arr: any = [];
 const Slider = () => {
   const dispatch = useDispatch();
   const searchref = useRef<HTMLInputElement>(null);
-  const searchData = (e: any) => {
-    e.preventDefault();
-    if (searchref.current !== null) {
-      let value = searchref.current.value;
-      dispatch<any>(searchItem(value));
-    }
-  };
+  // for get product data
   useEffect(() => {
     let productData = localStorage.getItem("productData") || "";
     console.log(JSON.parse(productData));
@@ -22,9 +16,19 @@ const Slider = () => {
       }
     });
   }, []);
+  // for search data
+  const searchData = (e: any) => {
+    e.preventDefault();
+    if (searchref.current !== null) {
+      let value = searchref.current.value;
+      dispatch<any>(searchItem(value));
+    }
+  };
+  // for flter data
   const filterItem = (e: any) => {
     dispatch<any>(filter(e.target.value));
   };
+  // for sorting data
   const sorting = (e: any) => {
     dispatch<any>(sortItem(e.target.value));
   };

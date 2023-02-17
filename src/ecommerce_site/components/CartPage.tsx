@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import {
   decrementCart,
   deletCartItem,
@@ -12,7 +11,6 @@ import {
 import { state } from "../typeProps";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
-
 const CartPage = () => {
   let flag = false;
   let grandTotal = 0;

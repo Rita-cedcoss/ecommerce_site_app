@@ -9,9 +9,11 @@ const AdminDashBoard = () => {
   let state = useAppSelector((state) => state);
   let dispatch = useDispatch();
   let userData = localStorage.getItem("signUpData") || "";
+// get user data 
   useEffect(() => {
     dispatch(getUserItem(JSON.parse(userData)));
   }, []);
+  // delete users
   const deleteUser = (index: number) => {
     dispatch(deletUser(index));
   };

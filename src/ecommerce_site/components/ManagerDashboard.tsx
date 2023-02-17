@@ -1,14 +1,12 @@
 import React, { useEffect, useRef } from "react";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import {
-  fetchProductData,
   getQuantity,
   updateQuntity,
 } from "../Redux/ecommerceSlice";
 import { state } from "../typeProps";
 import AdminNav from "./AdminNav";
 import Footer from "./Footer";
-
 const ManagerDashboard = () => {
   let useSelectorApp: TypedUseSelectorHook<state> = useSelector;
   let state = useSelectorApp((state) => state.EcommerceReducer);
@@ -22,9 +20,14 @@ const ManagerDashboard = () => {
   }, []);
   const QuantityUpdate = (e:any ,i: number) => {
     e.preventDefault();
-    dispatch<any>(
-      updateQuntity({ index: i, inpValue: refQuantity.current[i].value })
-    );
+    if(!refQuantity.current[i].value.match(/^[0-9]/)){
+       refQuantity.current[i].value="";
+       console.log("number only allowed");
+    }else{
+      dispatch<any>(
+        updateQuntity({ index: i, inpValue: refQuantity.current[i].value })
+      );
+    }
     e.target.reset();
   };
   return (

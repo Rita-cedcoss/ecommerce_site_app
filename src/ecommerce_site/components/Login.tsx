@@ -1,8 +1,7 @@
-import React, { ChangeEvent, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { AnyAction } from "redux";
-import { fetchProductData, getLogin, loginUser } from "../Redux/ecommerceSlice";
+import {  getLogin, loginUser } from "../Redux/ecommerceSlice";
 
 const Login = () => {
   let loginRef=useRef<any>([]);
@@ -11,7 +10,12 @@ const Login = () => {
   const dispatch=useDispatch();
   useEffect(()=>{
    let loginData= localStorage.getItem("loginUser")||"";
-   dispatch(getLogin(JSON.parse(loginData)));
+   if(loginData=="")
+   {
+     console.log("data not fetch");
+   }else{
+          dispatch(getLogin(JSON.parse(loginData)));
+   }
   },[])
 // for user login
   const signIn=(e:any)=>{
@@ -74,6 +78,9 @@ const Login = () => {
           <button type="submit" className="btn btn-primary" onClick={signIn}>
             Sign In
           </button>
+          <span className="ps-2 fs-5 pt-5">
+            <Link to="/">Sign Up</Link>
+          </span>
         </form>
       </div>
     </>

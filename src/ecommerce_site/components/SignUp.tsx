@@ -17,16 +17,24 @@ const SignUp = () => {
     msgPswd: "",
     msgEmpty: "",
   });
+    // for get user Data
   useEffect(() => {
     let signuUser = localStorage.getItem("signUpData") || "";
-    dispatch(getUserItem(JSON.parse(signuUser)));
+    if(signuUser=="")
+    {
+      console.log("user data not fetch");
+    }
+    else{
+        dispatch(getUserItem(JSON.parse(signuUser)));
+    }
   }, []);
   const [role, setRole] = useState("user");
-  // input handler
+  // for role selection
   const selectRole = (e: any) => {
     console.log(e.target.value);
     setRole(e.target.value);
   };
+    // input handler
   const inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     let placeholder = e.target.getAttribute("placeholder");
     if (placeholder == "Enter Your Name") {
@@ -108,7 +116,6 @@ const SignUp = () => {
     e.currentTarget.reset();
     setErrormsg({ ...errorMessage });
   };
-  // for get user Data
   return (
     <>
       <div className="container col-6 m-auto mt-2 text-center">

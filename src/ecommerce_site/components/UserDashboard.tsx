@@ -15,10 +15,17 @@ const UserDashboard = () => {
   let useAppSelector: TypedUseSelectorHook<state> = useSelector;
   let state = useAppSelector((state) => state);
   let dispatch = useDispatch();
+  // for fetch user data
   useEffect(() => {
-    dispatch<any>(fetchProductData())
     let productData = localStorage.getItem("productData") || "";
-    dispatch(getQuantity(JSON.parse(productData)));
+    console.log(productData);
+    if(productData=="")
+    {
+        dispatch<any>(fetchProductData());
+    }
+    else{
+        dispatch(getQuantity(JSON.parse(productData)));
+    }   
     let signuUser = localStorage.getItem("signUpData") || "";
     console.log(signuUser);
     dispatch(getUserItem(JSON.parse(signuUser)));

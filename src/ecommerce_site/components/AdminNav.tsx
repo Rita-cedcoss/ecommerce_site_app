@@ -16,7 +16,7 @@ const AdminNav = () => {
     <nav className="navbar navbar-expand-lg navbar-light navBg border-bottom mb-2">
       <div className="container-fluid ">
         <a className="navbar-brand" href="#">
-          <i className="bi bi-person-circle fs-2"></i>
+          <i className="bi bi-person-circle fs-2"></i><span className="ps-3 fs-3">{state.EcommerceReducer.loginObj.name}</span>
         </a>
         <button
           className="navbar-toggler"
@@ -32,7 +32,7 @@ const AdminNav = () => {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0 ">
             <li className="nav-item">
-              <Link to="/" className="text-decoration-none ps-3 pe-3 text-dark">
+              <Link to="/" className="text-decoration-none ps-3 fs-4 pe-3 text-dark">
                 Logout
               </Link>
             </li>

@@ -27,8 +27,6 @@ const Footer = () => {
             <button className="col-3 m-2 btn btn-outline-light">Send</button>
           </div>
         </div>
-
-      {/* </div> */}
     </div>
   </div>
   )
