@@ -10,23 +10,18 @@ const UserDashboard = () => {
   let useAppSelector:TypedUseSelectorHook<state>=useSelector
   let state=useAppSelector(state=>state)
   let dispatch=useDispatch();
-
   useEffect(() => {
-    
+    // dispatch<any>(fetchProductData())
     let productData = localStorage.getItem("productData") || "";
     dispatch(getQuantity(JSON.parse(productData)));
       let signuUser=localStorage.getItem("signUpData")||"";
     console.log(signuUser);
     dispatch(getUserItem(JSON.parse(signuUser)));
   }, []);
-  // console.log(state.EcommerceReducer.signupArr);
   const addToCart=(ind:number)=>{ 
-    // console.log(JSON.parse( localStorage.getItem("signUpData")||""));  
-  //  console.log(state.EcommerceReducer.signupArr);
    let loginData=JSON.parse(localStorage.getItem("loginUser")||"");
    console.log(state);
    JSON.parse( localStorage.getItem("signUpData")||"").map((item:any,i:number)=>{
-    //  console.log(item);
      if(item. email==loginData.email && item.password==loginData.password){
             dispatch(addCart({obj:state.EcommerceReducer.searchArr[ind],index:i,prodIndex:ind}));
      }
@@ -48,13 +43,12 @@ const UserDashboard = () => {
             <div className="productItem_content ps-2 border-top">
               <p className='fw-bold pt-2'>{item.title}</p>
               <p >Price : ${item.price}</p>
-                <div className='d-flex justify-content-between  '>
-                  <p className="text-primary">Quantity:{item.stock}</p>
+                <div className='d-flex justify-content-between'>
                 <span className='bg-primary rounded text me-3  ps-2 pe-2 pt-2 pb-2 text-light' onClick={()=>addToCart(i)}>Add To Cart</span>
                 </div>
             </div>
           </div>
-              </>)
+          </>)
             })     
             }
           </div>

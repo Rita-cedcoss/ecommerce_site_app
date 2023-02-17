@@ -6,91 +6,110 @@ import { state } from "../typeProps";
 
 const SignUp = () => {
   //for state selector
-  let useAppSelector:TypedUseSelectorHook<state>=useSelector
-  let state=useAppSelector(state=>state);
-//for dispatch function
-  let dispatch=useDispatch();
-  const signupRef=useRef<any>([]);
-  const [errorMessage,setErrormsg]=useState({msgName:"",msgEmail:"",msgPswd:"" ,msgEmpty:""});
-  // input handler
-  const inputHandler=(e:React.ChangeEvent<HTMLInputElement>)=>{ 
-    let placeholder= e.target.getAttribute("placeholder");
-    if(placeholder=="Enter Your Name")
-    {  
-      if(!e.target.value.match(/^[A-Za-z\s]*$/)){
-            errorMessage.msgName="Please Enter only Letter" 
-            errorMessage.msgEmpty="";    
-      }
-      else{
-        errorMessage.msgName=""
-        errorMessage.msgEmpty="";
-        signupRef.current.name=e.target.value;
-      }
-    }
-    if(placeholder=="Enter Your Email")
-    {
-      if(!e.target.value.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/))
-      {
-          errorMessage.msgEmail="Please Enter correct email"
-          errorMessage.msgEmpty="";
-      }
-      else{
-        errorMessage.msgEmail=""
-        errorMessage.msgEmpty="";
-        signupRef.current.email=e.target.value;
-      }
-    }
-    if(placeholder=="Enter Your Password")
-    {
-      if(!e.target.value.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/))
-      {
-        errorMessage.msgPswd="atlest 1 uppercase letter,1 lowercase letter,1 special character,1 number,min 8 characters";
-        errorMessage.msgEmpty="";
-      }
-      else{
-        errorMessage.msgPswd="";
-        errorMessage.msgEmpty="";
-        signupRef.current.password=e.target.value;
-      }
-    }
-    setErrormsg({...errorMessage});
-  }
-  // user register
-  const register=(e:any)=>{
-    console.log(state.EcommerceReducer)
-    let flag=false;
-    e.preventDefault();
-     if(signupRef.current.name.value==""||signupRef.current.email.value==""|| signupRef.current.password.value==""){
-      errorMessage.msgEmpty="Please Fill All The fields"
-    
-    }
-     else{
-      state.EcommerceReducer.signupArr.map((item:any)=>{
-        if(item.name==signupRef.current.name.value &&  item.email==signupRef.current.email.value && item.password==signupRef.current.password.value){
-          
-          flag=true;
-        }
-      })
-      if(flag)
-      {
-        errorMessage.msgEmpty="User already exist";
-      }
-      else{
-        errorMessage.msgEmpty="User Signup Successfully";
-        let obj={name:signupRef.current.name.value,email:signupRef.current.email.value,password:signupRef.current.password.value,role:"user",cartArr:[]} 
-            dispatch(signup(obj));
-      }
-     }
-     e.currentTarget.reset();
-     setErrormsg({...errorMessage});
-  }
-  // for get user Data
-  useEffect(()=>{
-    // localStorage.removeItem("signUpData");
-    let signuUser=localStorage.getItem("signUpData")||"";
-    // console.log(signuUser);
+  let useAppSelector: TypedUseSelectorHook<state> = useSelector;
+  let state = useAppSelector((state) => state);
+  //for dispatch function
+  let dispatch = useDispatch();
+  const signupRef = useRef<any>([]);
+  const [errorMessage, setErrormsg] = useState({
+    msgName: "",
+    msgEmail: "",
+    msgPswd: "",
+    msgEmpty: "",
+  });
+  useEffect(() => {
+    let signuUser = localStorage.getItem("signUpData") || "";
     dispatch(getUserItem(JSON.parse(signuUser)));
-  },[])
+  }, []);
+  const [role, setRole] = useState("user");
+  // input handler
+  const selectRole = (e: any) => {
+    console.log(e.target.value);
+    setRole(e.target.value);
+  };
+  const inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let placeholder = e.target.getAttribute("placeholder");
+    if (placeholder == "Enter Your Name") {
+      if (!e.target.value.match(/^[A-Za-z\s]*$/)) {
+        errorMessage.msgName = "Please Enter only Letter";
+        errorMessage.msgEmpty = "";
+      } else {
+        errorMessage.msgName = "";
+        errorMessage.msgEmpty = "";
+        signupRef.current.name = e.target.value;
+      }
+    }
+    if (placeholder == "Enter Your Email") {
+      if (
+        !e.target.value.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)
+      ) {
+        errorMessage.msgEmail = "Please Enter correct email";
+        errorMessage.msgEmpty = "";
+      } else {
+        errorMessage.msgEmail = "";
+        errorMessage.msgEmpty = "";
+        signupRef.current.email = e.target.value;
+      }
+    }
+    if (placeholder == "Enter Your Password") {
+      if (
+        !e.target.value.match(
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/
+        )
+      ) {
+        errorMessage.msgPswd =
+          "atlest 1 uppercase letter,1 lowercase letter,1 special character,1 number,min 8 characters";
+        errorMessage.msgEmpty = "";
+      } else {
+        errorMessage.msgPswd = "";
+        errorMessage.msgEmpty = "";
+        signupRef.current.password = e.target.value;
+      }
+    }
+    setErrormsg({ ...errorMessage });
+  };
+ 
+  // user register
+  const register = (e: any) => {
+    console.log(state.EcommerceReducer);
+    let flag = false;
+    e.preventDefault();
+    if (
+      signupRef.current.name.value == "" ||
+      signupRef.current.email.value == "" ||
+      signupRef.current.password.value == ""
+    ) {
+      errorMessage.msgEmpty = "Please Fill All The fields";
+    } else {
+      state.EcommerceReducer.signupArr.map((item: any) => {
+        if (
+          
+          item.email == signupRef.current.email.value||
+          item.password == signupRef.current.password.value
+        ) {
+          flag = true;
+        }
+      });
+      if (flag) {
+        errorMessage.msgEmpty = "User already exist";
+      } else {
+        errorMessage.msgEmpty = "User Signup Successfully";
+        let obj = {
+          name: signupRef.current.name.value,
+          email: signupRef.current.email.value,
+          password: signupRef.current.password.value,
+          role: role,
+          cartArr: [],
+        };
+        console.log(obj);
+        dispatch(signup(obj));
+      }
+    }
+    e.currentTarget.reset();
+    setErrormsg({ ...errorMessage });
+  };
+  // for get user Data
+ 
   return (
     <>
       <div className="container col-6 m-auto mt-2 text-center">
@@ -109,41 +128,66 @@ const SignUp = () => {
             <input
               placeholder="Enter Your Name"
               type="text"
-              ref={(ref)=>signupRef.current.name=ref}
+              ref={(ref) => (signupRef.current.name = ref)}
               className="form-control"
               onChange={inputHandler}
               aria-describedby="nameHelp"
             />
-            <div id="emailHelp" className="form-text text-danger ">{errorMessage.msgName}</div>
+            <div id="emailHelp" className="form-text text-danger ">
+              {errorMessage.msgName}
+            </div>
           </div>
           <div className="mb-2">
             <label className="form-label">Email address</label>
             <input
               type="email"
               placeholder="Enter Your Email"
-              ref={ref=>signupRef.current.email=ref}
+              ref={(ref) => (signupRef.current.email = ref)}
               onChange={inputHandler}
               className="form-control"
               aria-describedby="emailHelp"
             />
-            <div  className="form-text">{errorMessage.msgEmail}</div>
+            <div className="form-text">{errorMessage.msgEmail}</div>
           </div>
           <div className="mb-2">
             <label className="form-label">Password</label>
             <input
               type="password"
               placeholder="Enter Your Password"
-              ref={ref=>signupRef.current.password=ref}
+              ref={(ref) => (signupRef.current.password = ref)}
               onChange={inputHandler}
               className="form-control"
             />
           </div>
-          <div className="form-text pb-2 text-danger">{errorMessage.msgPswd}</div>
-          <div className="form-text pb-2 text-success" >{errorMessage.msgEmpty}</div>
+          <div className="form-text pb-2 text-danger">
+            {errorMessage.msgPswd}
+          </div>
+          <div className="mb-2">
+            <label className="form-label">Email Role</label>
+            <select
+              className="form-control"
+              onChange={selectRole}
+              ref={signupRef.current.role}
+            >
+              <option hidden selected>
+                Select
+              </option>
+              <option value="user">User</option>
+              <option value="admin">Admin</option>
+              <option value="manager">Manager</option>
+            </select>
+            <div className="form-text">{errorMessage.msgEmail}</div>
+          </div>
+        
+          <div className="form-text pb-2 text-success">
+            {errorMessage.msgEmpty}
+          </div>
           <button type="submit" className="btn btn-primary mt-2">
             Sign Up
           </button>
-           <span className="ps-2 fs-5 pt-5"><Link to="/login">Login</Link></span>     
+          <span className="ps-2 fs-5 pt-5">
+            <Link to="/login">Login</Link>
+          </span>
         </form>
       </div>
     </>

@@ -20,10 +20,12 @@ const ManagerDashboard = () => {
     console.log(JSON.parse(productData));
     dispatch(getQuantity(JSON.parse(productData)));
   }, []);
-  const QuantityUpdate = (i: number) => {
+  const QuantityUpdate = (e:any ,i: number) => {
+    e.preventDefault();
     dispatch<any>(
       updateQuntity({ index: i, inpValue: refQuantity.current[i].value })
     );
+    e.target.reset();
   };
   return (
     <>
@@ -49,30 +51,21 @@ const ManagerDashboard = () => {
                   
                   <td>
                     {item.stock}
-                    {/* <input
-                      className="col-2 border-0"
-                      ref={(ref) => (refQuantity.current[i] = ref)}
-                      type="text"
-                    />
-                    <button
-                      className="border-0"
-                      onClick={() => QuantityUpdate(i)}
-                    >
-                      Update
-                    </button> */}
                   </td>
                   <td>
+                    <form onSubmit={(e) => QuantityUpdate(e,i)}>
                     <input
                       className="col-2 border-0"
                       ref={(ref) => (refQuantity.current[i] = ref)}
                       type="text"
                     />
-                    <button
+                    {/* <button
                       className="border-0 text-primary"
-                      onClick={() => QuantityUpdate(i)}
+                      // onClick={() => QuantityUpdate(i)}
                     >
                       Update
-                    </button>
+                    </button> */}
+                    </form>
                   </td>
                 </tr>
               );

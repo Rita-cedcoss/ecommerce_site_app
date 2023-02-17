@@ -1,5 +1,19 @@
+import { constants } from 'buffer';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom'
+import { getLogin } from '../Redux/ecommerceSlice';
+
+
+
 const Navbar = () => {
+  
+  const dispatch=useDispatch();
+  useEffect(()=>{
+    let loginData= localStorage.getItem("loginUser")||"";
+    dispatch(getLogin(JSON.parse(loginData)));
+   })
+  //  console.log(state)
   return (
 <>
 <nav className="navbar navbar-expand-lg navbar-light navBg border-bottom mb-2">

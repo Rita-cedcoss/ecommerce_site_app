@@ -60,7 +60,6 @@ const Login = () => {
               className="form-control"
               aria-describedby="emailHelp"
             />
-            {/* <div id="emailHelp" className="form-text">xcsdg</div> */}
           </div>
           <div className="mb-3">
             <label className="form-label">Password</label>

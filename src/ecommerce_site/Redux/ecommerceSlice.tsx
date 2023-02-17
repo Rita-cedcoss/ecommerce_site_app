@@ -77,7 +77,7 @@ const ecommerceSlice = createSlice({
             state.signupArr[action.payload.index].cartArr[itemIndex].price *
             state.signupArr[action.payload.index].cartArr[itemIndex]
               .productQuantity;
-              state.searchArr[action.payload.prodIndex].stock-=1
+              // state.searchArr[action.payload.prodIndex].stock-=1
         } else {
           state.CartArr[itemIndex].msg = "Stock Finish";
         }
@@ -90,9 +90,9 @@ const ecommerceSlice = createSlice({
         };
         state.signupArr[action.payload.index].cartArr.push(tempProduct);
       }
-      state.productArr[action.payload.prodIndex].stock=state.searchArr[action.payload.prodIndex].stock
+      // state.productArr[action.payload.prodIndex].stock=state.searchArr[action.payload.prodIndex].stock
       localStorage.setItem("signUpData", JSON.stringify(state.signupArr));
-      localStorage.setItem("productData", JSON.stringify(state.productArr));
+      // localStorage.setItem("productData", JSON.stringify(state.productArr));
     },
     searchItem: (state, action) => {
       let matchSearchArr: any = [];
@@ -120,8 +120,8 @@ const ecommerceSlice = createSlice({
         state.signupArr[action.payload.userIndex].cartArr[
           action.payload.cartIndex
         ].productQuantity;
-        state.productArr[action.payload.prodIndex].stock-=1
-        localStorage.setItem("productData", JSON.stringify(state.productArr));
+        // state.productArr[action.payload.prodIndex].stock-=1
+        // localStorage.setItem("productData", JSON.stringify(state.productArr));
         localStorage.setItem("signUpData", JSON.stringify(state.signupArr));
     },
     decrementCart: (state, action) => {
@@ -143,9 +143,9 @@ const ecommerceSlice = createSlice({
           state.signupArr[action.payload.userIndex].cartArr[
             action.payload.cartIndex
           ].productQuantity;
-          state.productArr[action.payload.prodIndex].stock+=1
+          // state.productArr[action.payload.prodIndex].stock+=1
       }
-      localStorage.setItem("productData", JSON.stringify(state.productArr));
+      // localStorage.setItem("productData", JSON.stringify(state.productArr));
       localStorage.setItem("signUpData", JSON.stringify(state.signupArr));
     },
     deletCartItem: (state, action) => {
@@ -191,7 +191,7 @@ const ecommerceSlice = createSlice({
       .addCase(fetchProductData.fulfilled, (state, action) => {
         state.productArr = action.payload;
         state.searchArr = action.payload;
-        localStorage.setItem("productData", state.productArr);
+        localStorage.setItem("productData",JSON.stringify(state.productArr));
       })
       .addCase(fetchProductData.rejected, (state, action) => {});
   },
