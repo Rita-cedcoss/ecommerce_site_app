@@ -7,7 +7,6 @@ import Footer from "./Footer";
 const AdminDashBoard = () => {
   let useAppSelector: TypedUseSelectorHook<state> = useSelector;
   let state = useAppSelector((state) => state);
-  console.log(state.EcommerceReducer);
   let dispatch = useDispatch();
   let userData = localStorage.getItem("signUpData") || "";
   useEffect(() => {
@@ -52,7 +51,6 @@ const AdminDashBoard = () => {
           </tbody>
         </table>
       </div>
-
       <Footer />
     </>
   );

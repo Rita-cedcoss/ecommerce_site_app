@@ -8,8 +8,6 @@ import UserDashboard from './ecommerce_site/components/UserDashboard';
 import AdminDashBoard from './ecommerce_site/components/AdminDashBoard';
 import ManagerDashboard from './ecommerce_site/components/ManagerDashboard';
 import CartPage from './ecommerce_site/components/CartPage';
-import PaymentPage from './ecommerce_site/components/PaymentPage';
-
 function App() {
   return (
     <>
@@ -20,7 +18,6 @@ function App() {
       <Route path="/admin" element={<AdminDashBoard/>}/>
       <Route path="/manager" element={<ManagerDashboard/>}/>
       <Route path="/cart" element={<CartPage/>}/>
-      <Route path="/payment" element={<PaymentPage/>}/>
     </Routes>
     </>
     

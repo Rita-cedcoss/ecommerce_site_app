@@ -1,7 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { getLogin } from "../Redux/ecommerceSlice";
+import { state } from "../typeProps";
 
 const AdminNav = () => {
+  let useAppSelector: TypedUseSelectorHook<state> = useSelector;
+  let state = useAppSelector((state) => state);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    let user = localStorage.getItem("loginUser") || "";
+    dispatch(getLogin(JSON.parse(user)));
+  }, []);
   return (
     <nav className="navbar navbar-expand-lg navbar-light navBg border-bottom mb-2">
       <div className="container-fluid ">
@@ -23,7 +33,7 @@ const AdminNav = () => {
           <ul className="navbar-nav me-auto mb-2 mb-lg-0 ">
             <li className="nav-item">
               <Link to="/" className="text-decoration-none ps-3 pe-3 text-dark">
-                SignUp
+                Logout
               </Link>
             </li>
           </ul>

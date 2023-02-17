@@ -59,12 +59,6 @@ const ManagerDashboard = () => {
                       ref={(ref) => (refQuantity.current[i] = ref)}
                       type="text"
                     />
-                    {/* <button
-                      className="border-0 text-primary"
-                      // onClick={() => QuantityUpdate(i)}
-                    >
-                      Update
-                    </button> */}
                     </form>
                   </td>
                 </tr>

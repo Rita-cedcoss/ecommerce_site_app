@@ -12,7 +12,7 @@ const Login = () => {
   useEffect(()=>{
    let loginData= localStorage.getItem("loginUser")||"";
    dispatch(getLogin(JSON.parse(loginData)));
-  })
+  },[])
 // for user login
   const signIn=(e:any)=>{
     e.preventDefault();

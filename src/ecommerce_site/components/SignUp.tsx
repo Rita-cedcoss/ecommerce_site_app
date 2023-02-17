@@ -109,7 +109,6 @@ const SignUp = () => {
     setErrormsg({ ...errorMessage });
   };
   // for get user Data
- 
   return (
     <>
       <div className="container col-6 m-auto mt-2 text-center">
@@ -177,8 +176,7 @@ const SignUp = () => {
               <option value="manager">Manager</option>
             </select>
             <div className="form-text">{errorMessage.msgEmail}</div>
-          </div>
-        
+          </div> 
           <div className="form-text pb-2 text-success">
             {errorMessage.msgEmpty}
           </div>
