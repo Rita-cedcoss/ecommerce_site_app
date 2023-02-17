@@ -20,7 +20,7 @@ const AdminDashBoard = () => {
   return (
     <>
       <AdminNav />
-      <div className="container">
+      <div className="container table-responsive">
         <table className="table">
           <thead>
             <tr>

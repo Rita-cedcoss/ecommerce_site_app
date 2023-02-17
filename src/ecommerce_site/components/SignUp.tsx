@@ -153,7 +153,7 @@ const SignUp = () => {
               className="form-control"
               aria-describedby="emailHelp"
             />
-            <div className="form-text">{errorMessage.msgEmail}</div>
+            <div className="form-text text-danger">{errorMessage.msgEmail}</div>
           </div>
           <div className="mb-2">
             <label className="form-label">Password</label>

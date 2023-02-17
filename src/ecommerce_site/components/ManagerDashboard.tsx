@@ -33,7 +33,7 @@ const ManagerDashboard = () => {
   return (
     <>
       <AdminNav />
-      <div className="container text-center">
+      <div className="container text-center table-responsive">
         <table className="table table-striped text-center">
           <thead>
             <tr>

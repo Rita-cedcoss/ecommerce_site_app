@@ -38,7 +38,7 @@ const Login = () => {
         navigate("/admin");
       }
       else{
-        setErrormsg("Please enter valid email");
+        setErrormsg("Please enter valid email and password");
         setTimeout(()=>{setErrormsg(" ")},2000);
       }
     }) 

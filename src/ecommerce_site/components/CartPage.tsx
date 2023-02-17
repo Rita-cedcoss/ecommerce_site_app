@@ -60,8 +60,8 @@ const CartPage = () => {
   return (
     <>
       <Navbar />
-      <div className="container">
-        <table className="table mt-5">
+      <div className="container table-responsive">
+        <table className="table ">
           <thead></thead>
           <tbody>
             {state.EcommerceReducer.signupArr.map(
